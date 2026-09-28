@@ -52,6 +52,42 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
 
 .skip-link:focus { top: 12px; }
 
+.site-notice {
+  border-bottom: 1px solid #4a2f20;
+  background: #19130f;
+}
+
+.site-notice-inner {
+  width: min(calc(100% - 40px), var(--content-width));
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-inline: auto;
+}
+
+.site-notice-tag {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border: 1px solid #754329;
+  border-radius: 20px;
+  color: var(--orange);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.site-notice p {
+  margin: 0;
+  color: #b9a89e;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .site-header {
   border-bottom: 1px solid var(--border);
   background: var(--background);
@@ -794,6 +830,8 @@ h1 {
 .footer a:hover { color: var(--orange); }
 
 @media (max-width: 680px) {
+  .site-notice-inner { width: min(calc(100% - 30px), var(--content-width)); justify-content: flex-start; }
+  .site-notice p { font-size: 10px; }
   .nav,
   .page,
   .footer { width: min(calc(100% - 30px), var(--content-width)); }
