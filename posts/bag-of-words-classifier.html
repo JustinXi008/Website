@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="description" content="Details about Justin Xi's C++ bag-of-words classifier inspired by Piazza discussion posts." />
+    <title>Bag-of-Words Classifier — Justin Xi</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="logo" href="../index.html" aria-label="Justin Xi, home">Justin Xi<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../posts.html" aria-current="page">Posts</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../coursework.html">Coursework</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="page article-page">
+      <a class="back-link" href="../posts.html">← All posts</a>
+
+      <article>
+        <header class="article-header">
+          <p class="article-kicker">Machine learning</p>
+          <h1>Bag-of-Words Classifier</h1>
+          <p class="article-deck">A C++ text classifier inspired by Piazza posts that learns from labeled examples and predicts the topic of new discussions.</p>
+          <div class="article-byline">
+            <time datetime="2026-03-27">March 27, 2026</time>
+            <span class="status complete">Completed</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <h2>What I built</h2>
+          <p>
+            I built a C++ classifier inspired by Piazza posts. It learns from discussions that already have topic labels, then uses what it learned to identify the most likely topic of a new post. The labels are read from the training data instead of being hardcoded into the program.
+          </p>
+
+          <h2>Training the model</h2>
+          <p>
+            The training data comes from CSV files containing a label and the text of each post. I treat every post as a bag of unique words, which means word order and repeated occurrences do not change the result. Sets and maps store the vocabulary, the number of posts for each label, and how often each word appears overall and within each label.
+          </p>
+
+          <h2>Making a prediction</h2>
+          <p>
+            The classifier uses a simplified multivariate Bernoulli Naive Bayes model. For each possible label, it combines the label’s prior probability with the likelihood of the words in the post. It uses log-probability scores to keep the calculation manageable, then selects the label with the highest score. The completed program can train from one dataset, classify a separate set of posts, and compare its predictions with the correct labels.
+          </p>
+        </div>
+
+        <ul class="tags article-topics" aria-label="Topics"><li>C++</li><li>Machine learning</li><li>Natural language processing</li></ul>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Justin Xi</p>
+      <a href="../index.html">Back home →</a>
+    </footer>
+  </body>
+</html>

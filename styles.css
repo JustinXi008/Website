@@ -357,7 +357,6 @@ h1 {
 }
 
 .post-timeline { margin-top: 25px; }
-
 .post-year + .post-year { margin-top: 30px; }
 
 .post-year {
@@ -405,12 +404,44 @@ h1 {
 }
 
 .post-date { color: var(--subtle); font-family: var(--mono); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+.post-category { color: var(--orange); font-family: var(--mono); font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; }
 .post-entry-title { margin: 0 0 10px; font-size: 19px; font-weight: 600; line-height: 1.4; }
 .post-excerpt { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
 .post-topics { margin-top: 17px; }
-.post-project-link { display: inline-block; margin-top: 17px; padding-bottom: 2px; border-bottom: 1px solid #55524d; color: #c2bfb8; font-size: 12px; }
-.post-project-link span { margin-left: 3px; color: var(--orange); }
-.post-project-link:hover { border-color: var(--orange); color: var(--orange); }
+.post-read-more { display: inline-block; margin-top: 17px; padding-bottom: 2px; border-bottom: 1px solid #55524d; color: #c2bfb8; font-size: 12px; }
+.post-read-more span { margin-left: 3px; color: var(--orange); }
+.post-read-more:hover { border-color: var(--orange); color: var(--orange); }
+
+.posts-view-more {
+  display: block;
+  width: fit-content;
+  margin: 28px 0 0 84px;
+  padding: 8px 12px;
+  border: 1px solid #55524d;
+  border-radius: 5px;
+  color: #c2bfb8;
+  font-size: 12px;
+}
+
+.posts-view-more span { margin-left: 5px; color: var(--orange); }
+.posts-view-more:hover { border-color: var(--orange); color: var(--orange); }
+
+.posts-archive { padding: 52px 0 76px; }
+.posts-archive .page-heading { margin-bottom: 0; }
+.posts-archive .post-timeline { margin-top: 40px; }
+
+.article-page { padding: 48px 0 70px; }
+.article-header { margin-top: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.article-kicker { display: block; margin-bottom: 14px; color: var(--orange); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.article-header h1 { max-width: 720px; margin: 0 0 14px; font-size: clamp(34px, 6vw, 46px); line-height: 1.1; letter-spacing: -1.4px; }
+.article-deck { max-width: 660px; margin: 0 0 24px; color: var(--muted); font-size: 18px; line-height: 1.65; }
+.article-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; color: var(--subtle); font-family: var(--mono); font-size: 10px; }
+.article-body { max-width: 640px; margin: 36px 0; color: #c6c3bc; font-size: 16px; line-height: 1.85; }
+.article-body h2 { margin: 32px 0 10px; color: var(--text); font-size: 20px; font-weight: 600; line-height: 1.35; letter-spacing: -0.2px; }
+.article-body h2:first-child { margin-top: 0; }
+.article-body p { margin-bottom: 18px; }
+.article-body p:last-child { margin-bottom: 0; }
+.article-body code { color: #d8b09b; font-family: var(--mono); font-size: 0.9em; }
 
 .subpage { padding: 52px 0 76px; }
 
@@ -705,6 +736,48 @@ h1 {
 .course-row h3 { margin-bottom: 4px; font-size: 14px; }
 .course-row p { margin: 0; color: var(--muted); font-size: 13px; }
 
+.resume-page { padding: 44px 0 70px; }
+
+.resume-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.resume-toolbar h1 { margin: 9px 0 2px; font-size: 34px; }
+.resume-toolbar p { margin: 0; color: var(--muted); font-size: 13px; }
+
+.resume-download {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  padding: 9px 12px;
+  border: 1px solid #704127;
+  border-radius: 6px;
+  background: var(--orange-soft);
+  color: #ffd0b7;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.resume-download span { margin-left: 6px; color: var(--orange); }
+.resume-download:hover { border-color: var(--orange); color: var(--text); }
+
+.resume-preview {
+  width: 100%;
+  aspect-ratio: 8.5 / 11;
+  min-height: 720px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #e7e7e7;
+}
+
+.resume-preview object { width: 100%; height: 100%; display: block; }
+.resume-preview p { padding: 24px; color: #242424; }
+.resume-preview p a { color: #9a3d0b; text-decoration: underline; }
+
 .footer {
   min-height: 84px;
   display: flex;
@@ -744,6 +817,12 @@ h1 {
   .post-timeline-entry { padding-left: 18px; }
   .post-entry-title { font-size: 17px; }
   .post-excerpt { font-size: 14px; }
+  .posts-view-more { margin-left: 60px; }
+  .posts-archive { padding: 40px 0 58px; }
+  .article-page { padding: 36px 0 52px; }
+  .article-header { margin-top: 26px; }
+  .article-deck { font-size: 16px; }
+  .article-body { font-size: 15px; }
   .subpage { padding: 40px 0 58px; }
   .plan-note { grid-template-columns: 1fr; gap: 5px; }
   .project-topline { align-items: flex-start; }
@@ -758,6 +837,10 @@ h1 {
   .degree-meta { flex: 0 0 auto; }
   .degree-meta p { max-width: 84px; text-align: right; line-height: 1.4; }
   .course-row { grid-template-columns: 1fr; gap: 5px; }
+  .resume-page { padding: 34px 0 52px; }
+  .resume-toolbar { align-items: stretch; flex-direction: column; }
+  .resume-download { align-self: flex-start; }
+  .resume-preview { min-height: 70vh; aspect-ratio: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

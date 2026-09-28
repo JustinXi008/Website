@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="description" content="Details about Justin Xi's Laser Odometry Verification system for continuous, automatic robot position correction." />
+    <title>Laser Odometry Verification — Justin Xi</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="logo" href="../index.html" aria-label="Justin Xi, home">Justin Xi<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../posts.html" aria-current="page">Posts</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../coursework.html">Coursework</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="page article-page">
+      <a class="back-link" href="../posts.html">← All posts</a>
+
+      <article>
+        <header class="article-header">
+          <p class="article-kicker">Robotics</p>
+          <h1>Laser Odometry Verification</h1>
+          <p class="article-deck">A background odometry plug-in that uses distance sensors to check and correct a robot’s position automatically.</p>
+          <div class="article-byline">
+            <time datetime="2026-04-05">April 5, 2026</time>
+            <span class="status complete">Completed</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <h2>What I built</h2>
+          <p>
+            I built Laser Odometry Verification (LOV), an odometry plug-in that provides continuous, automatic, distance-based resets for a robot’s positioning system. It runs in the background, uses distance sensors to calculate the robot’s position, and synchronizes that information with the main position-tracking object.
+          </p>
+
+          <h2>Why I built it</h2>
+          <p>
+            Positioning systems often rely on a single manual reset or require separate code for periodic sensor checks. LOV supports manual resets, but its main purpose is to automate the process continuously so position corrections can happen without interrupting the rest of the robot’s control system.
+          </p>
+
+          <h2>Accuracy and control</h2>
+          <p>
+            I added automatic sensor-value accumulation to improve accuracy while the robot is stationary. Customizable <code>minDelta</code> and <code>maxDelta</code> filters account for normal sensor variation and obstacles on the field, while a <code>maxSyncPerSec</code> controller limits how often the system synchronizes its position.
+          </p>
+        </div>
+
+        <ul class="tags article-topics" aria-label="Topics"><li>C++</li><li>Sensors</li><li>Control</li><li>Robotics</li></ul>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Justin Xi</p>
+      <a href="../index.html">Back home →</a>
+    </footer>
+  </body>
+</html>

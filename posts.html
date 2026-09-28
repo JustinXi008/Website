@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="description" content="News, project updates, and things Justin Xi is learning." />
+    <title>Posts — Justin Xi</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="logo" href="index.html" aria-label="Justin Xi, home">Justin Xi<span>.</span></a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a class="active" href="posts.html" aria-current="page">Posts</a>
+          <a href="projects.html">Projects</a>
+          <a href="coursework.html">Coursework</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="page posts-archive">
+      <header class="page-heading">
+        <a class="back-link" href="index.html">← Home</a>
+        <h1>Posts</h1>
+        <p>News, project updates, and notes on what I’m learning.</p>
+      </header>
+
+      <div class="post-timeline" aria-label="All posts">
+        <section class="post-year" aria-labelledby="archive-year-2026">
+          <h2 class="post-year-title" id="archive-year-2026">2026</h2>
+          <article class="post-timeline-entry">
+            <div class="post-entry-topline">
+              <time class="post-date" datetime="2026-04-05">5 Apr</time>
+              <span class="post-category">Robotics</span>
+            </div>
+            <h3 class="post-entry-title">Laser Odometry Verification</h3>
+            <p class="post-excerpt">
+              I built an odometry plug-in that runs in the background and uses distance sensors to check and correct a robot’s position automatically.
+            </p>
+            <ul class="tags post-topics" aria-label="Topics"><li>C++</li><li>Sensors</li><li>Control</li><li>Robotics</li></ul>
+            <a class="post-read-more" href="posts/laser-odometry-verification-system.html" aria-label="Read more about Laser Odometry Verification">Read more <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="post-timeline-entry">
+            <div class="post-entry-topline">
+              <time class="post-date" datetime="2026-03-27">27 Mar</time>
+              <span class="post-category">Machine learning</span>
+            </div>
+            <h3 class="post-entry-title">Bag-of-Words Classifier</h3>
+            <p class="post-excerpt">
+              Inspired by Piazza posts, I built a C++ classifier that learns from labeled discussions and predicts the topic of new posts.
+            </p>
+            <ul class="tags post-topics" aria-label="Topics"><li>C++</li><li>Machine learning</li><li>Natural language processing</li></ul>
+            <a class="post-read-more" href="posts/bag-of-words-classifier.html" aria-label="Read more about the Bag-of-Words Classifier">Read more <span aria-hidden="true">→</span></a>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Justin Xi</p>
+      <a href="index.html">Back home →</a>
+    </footer>
+  </body>
+</html>
