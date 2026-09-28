@@ -1,34 +1,37 @@
-# Justin Xi — Personal Website
+# Personal Website
 
-A simple multi-page portfolio built with plain HTML, CSS, and a small amount of vanilla JavaScript.
+This is my personal website, built to keep my projects, coursework, experience, and other things I’m working on in one place.
 
-## Pages
+I’m a Computer Engineering student at the University of Michigan interested in embedded systems, software engineering, and robotics. I mainly use this site to document projects I’ve worked on, share some of the technical things I’ve learned, and keep an updated version of my portfolio.
 
-- `index.html` — short introduction, contact links, rotating Explore cards, and a timeline of the two latest posts.
-- `posts.html` — the complete archive of news and project updates.
-- `posts/` — full articles with publication dates and links to related posts.
-- `site.js` — cycles the featured project and coursework entries on the home page.
-- `projects.js` — opens linked project-detail popups on the Projects page.
-- `projects.html` — robotics, personal, and EECS 280 projects, with expandable project details.
-- `coursework.html` — University of Michigan coursework grouped by semester.
-- `resume.html` — in-browser résumé preview with a PDF download option.
-- `assets/Justin-Xi-Resume.pdf` — the résumé displayed by the preview page.
+The website is still a work in progress, so I’ll continue adding new projects and making changes over time.
 
-## Preview
+## What's on the site
 
-Run this command from the project folder:
+- **Home** – A quick introduction and overview of what I’m working on
+- **Projects** – Personal, robotics, and programming projects
+- **Coursework** – Relevant courses I’ve taken or plan to take
+- **Posts** – More detailed write-ups about some of my projects
+- **Résumé** – My current résumé and experience
 
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1
-```
+Some of the projects currently featured include a laser odometry verification system, data structure implementations, a text classifier, a Euchre simulator, and content-aware image resizing.
 
-Then open http://localhost:8000.
+## Built With
 
-There are no dependencies or build steps.
+- HTML
+- CSS
+- JavaScript
 
-## Updating the site
+I built the site from scratch rather than using a website builder or portfolio template. It’s also hosted through GitHub Pages with a custom domain.
 
-- Add completed projects to `projects.html` and replace the “Frontend planned” labels when demos are ready.
-- Add news and project updates to `posts.html`, placing the latest entry first, and keep only the two newest entries in the timeline on `index.html`. Link each “Read more” button to a full article in `posts/`; use an existing article as a template. Set both the displayed date and its `datetime` value.
-- Add future courses to `coursework.html`.
-- Replace `assets/Justin-Xi-Resume.pdf` when the résumé changes, keeping the same filename so links continue to work.
+## Website
+
+**[justinxi.com](https://justinxi.com)**
+
+## Development
+
+I’m still actively working on the site. Some things I plan to keep improving include adding new projects, writing more detailed project posts, and refining the design as I learn more.
+
+## Contact
+
+If you want to reach me, my contact information and GitHub are available directly on the website.
