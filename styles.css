@@ -35,6 +35,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.has-entrance-motion .entrance-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 580ms cubic-bezier(0.22, 1, 0.36, 1) var(--entrance-delay, 0ms),
+    transform 580ms cubic-bezier(0.22, 1, 0.36, 1) var(--entrance-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.has-entrance-motion .entrance-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 ::selection { background: var(--orange); color: #17110d; }
 a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
@@ -883,6 +897,11 @@ h1 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .has-entrance-motion .entrance-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
   .explore-preview-item { transition: none; }
   .project-detail-trigger span { transition: none; }
   .project-dialog:popover-open,
