@@ -1,27 +1,22 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const entranceGroups = [
-  ".home-page > section",
-  ".project-stack > .project-item",
-  ".post-year > .post-timeline-entry",
-  ".course-list > .course-row",
-];
-
-const entranceItems = entranceGroups.flatMap((selector) =>
-  Array.from(document.querySelectorAll(selector)),
+const homeEntranceItems = Array.from(document.querySelectorAll(".home-page > section"));
+const listingEntranceItems = Array.from(
+  document.querySelectorAll(
+    ".project-stack > .project-item, .post-year > .post-timeline-entry, .course-list > .course-row",
+  ),
 );
+const entranceItems = homeEntranceItems.length ? homeEntranceItems : listingEntranceItems;
 
 if (!reduceMotion && entranceItems.length) {
   document.documentElement.classList.add("has-entrance-motion");
 
-  entranceGroups.forEach((selector) => {
-    document.querySelectorAll(selector).forEach((item, index) => {
-      item.classList.add("entrance-item");
-      item.style.setProperty("--entrance-delay", `${Math.min(index, 3) * 70}ms`);
-    });
+  entranceItems.forEach((item, index) => {
+    item.classList.add("entrance-item");
+    item.style.setProperty("--entrance-delay", `${index * 70}ms`);
   });
 
-  if ("IntersectionObserver" in window) {
+  if (homeEntranceItems.length && "IntersectionObserver" in window) {
     const entranceObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -36,7 +31,11 @@ if (!reduceMotion && entranceItems.length) {
 
     entranceItems.forEach((item) => entranceObserver.observe(item));
   } else {
-    entranceItems.forEach((item) => item.classList.add("is-visible"));
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        entranceItems.forEach((item) => item.classList.add("is-visible"));
+      });
+    });
   }
 }
 
