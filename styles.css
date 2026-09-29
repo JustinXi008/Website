@@ -37,7 +37,7 @@ body {
 
 .has-entrance-motion .entrance-item {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(calc(18px + var(--hover-lift, 0px))) scale(var(--hover-scale, 1));
   transition:
     opacity 580ms cubic-bezier(0.22, 1, 0.36, 1) var(--entrance-delay, 0ms),
     transform 580ms cubic-bezier(0.22, 1, 0.36, 1) var(--entrance-delay, 0ms);
@@ -46,7 +46,7 @@ body {
 
 .has-entrance-motion .entrance-item.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(var(--hover-lift, 0px)) scale(var(--hover-scale, 1));
 }
 
 ::selection { background: var(--orange); color: #17110d; }
@@ -553,6 +553,7 @@ h1 {
 .project-stack { display: grid; gap: 11px; }
 
 .project-item {
+  position: relative;
   padding: 20px 22px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -560,14 +561,27 @@ h1 {
   transition:
     border-color 360ms ease,
     background-color 360ms ease,
-    box-shadow 360ms ease;
+    box-shadow 360ms ease,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.has-entrance-motion .project-item.entrance-item.is-visible {
+  transition:
+    border-color 360ms ease,
+    background-color 360ms ease,
+    box-shadow 360ms ease,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .project-item:hover,
 .project-item:focus-within {
   border-color: var(--orange);
   background: var(--surface-hover);
-  box-shadow: 0 0 0 1px rgb(255 122 51 / 14%), 0 0 14px rgb(255 122 51 / 9%);
+  box-shadow: 0 0 0 1px rgb(255 122 51 / 18%), 0 8px 22px rgb(0 0 0 / 30%), 0 0 18px rgb(255 122 51 / 12%);
+  --hover-lift: -2px;
+  --hover-scale: 1.012;
+  z-index: 1;
+  transform: translateY(var(--hover-lift)) scale(var(--hover-scale));
 }
 
 .project-item.has-details { cursor: pointer; }
@@ -894,7 +908,16 @@ h1 {
     transition: none;
   }
   .explore-preview-item { transition: none; }
-  .project-item { transition: none; }
+  .project-item {
+    transform: none;
+    transition: none;
+  }
+  .project-item:hover,
+  .project-item:focus-within { transform: none; }
+  .has-entrance-motion .project-item.entrance-item.is-visible {
+    transform: none;
+    transition: none;
+  }
   .project-dialog:popover-open,
   .project-dialog:popover-open::backdrop { animation: none; }
 }
