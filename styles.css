@@ -557,9 +557,25 @@ h1 {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
+  transition:
+    border-color 360ms ease,
+    background-color 360ms ease,
+    box-shadow 360ms ease;
 }
 
-.project-item.linked:hover { border-color: #704127; background: var(--surface-hover); }
+.project-item:hover,
+.project-item:focus-within {
+  border-color: var(--orange);
+  background: var(--surface-hover);
+  box-shadow: 0 0 0 1px rgb(255 122 51 / 14%), 0 0 14px rgb(255 122 51 / 9%);
+}
+
+.project-item.has-details { cursor: pointer; }
+
+.project-item.has-details:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
 
 .project-topline {
   display: flex;
@@ -571,30 +587,6 @@ h1 {
 
 .project-topline h3 { margin: 0; font-size: 15px; }
 .project-item > p { margin-bottom: 13px; color: var(--muted); font-size: 13px; }
-
-.project-item-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.project-detail-trigger {
-  flex: 0 0 auto;
-  padding: 2px 0 3px;
-  border: 0;
-  border-bottom: 1px solid #55524d;
-  background: transparent;
-  color: #c2bfb8;
-  font: inherit;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.project-detail-trigger span { display: inline-block; margin-left: 4px; color: var(--orange); transition: transform 140ms ease; }
-.project-detail-trigger:hover { border-color: var(--orange); color: var(--orange); }
-.project-detail-trigger:hover span { transform: translateX(3px); }
-.project-detail-trigger:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
 
 .status {
   flex: 0 0 auto;
@@ -879,7 +871,6 @@ h1 {
   .plan-note { grid-template-columns: 1fr; gap: 5px; }
   .project-topline { align-items: flex-start; }
   .project-topline h3 { padding-top: 1px; }
-  .project-item-footer { align-items: flex-end; }
   .project-dialog-content { padding: 21px; }
   .project-dialog-header h2 { font-size: 19px; }
   .group-heading { display: block; }
@@ -903,7 +894,7 @@ h1 {
     transition: none;
   }
   .explore-preview-item { transition: none; }
-  .project-detail-trigger span { transition: none; }
+  .project-item { transition: none; }
   .project-dialog:popover-open,
   .project-dialog:popover-open::backdrop { animation: none; }
 }
