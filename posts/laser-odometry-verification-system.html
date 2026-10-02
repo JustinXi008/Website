@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#121212" />
-    <meta name="description" content="Details about Justin Xi's Laser Odometry Verification system for continuous, automatic robot position correction." />
+    <meta name="description" content="How Justin Xi's Laser Odometry Verification system uses VEX V5 distance sensors, ray casting, filtering, and obstacle rejection to correct robot odometry." />
     <title>Laser Odometry Verification — Justin Xi</title>
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../styles.css" />
@@ -38,7 +38,7 @@
         <header class="article-header">
           <p class="article-kicker">Robotics</p>
           <h1>Laser Odometry Verification</h1>
-          <p class="article-deck">A background odometry plug-in that uses distance sensors to check and correct a robot’s position automatically.</p>
+          <p class="article-deck">A background positioning system that uses VEX V5 distance sensors, field geometry, and careful filtering to keep a robot’s odometry aligned.</p>
           <div class="article-byline">
             <time datetime="2026-04-05">April 5, 2026</time>
             <span class="status complete">Completed</span>
@@ -46,19 +46,79 @@
         </header>
 
         <div class="article-body">
-          <h2>What I built</h2>
-          <p>
-            I built Laser Odometry Verification (LOV), an odometry plug-in that provides continuous, automatic, distance-based resets for a robot’s positioning system. It runs in the background, uses distance sensors to calculate the robot’s position, and synchronizes that information with the main position-tracking object.
+          <p class="article-lede">
+            Wheel encoders and an inertial measurement unit can estimate a robot’s movement with high precision, but that estimate is still relative. Small errors from wheel slip, impacts, or sensor noise accumulate throughout a match. A tiny tracking error early in an autonomous run can become a large positional offset by the end.
           </p>
 
-          <h2>Why I built it</h2>
+          <h2>The odometry drift problem</h2>
           <p>
-            Positioning systems often rely on a single manual reset or require separate code for periodic sensor checks. LOV supports manual resets, but its main purpose is to automate the process continuously so position corrections can happen without interrupting the rest of the robot’s control system.
+            Standard odometry integrates many small changes in position. Because every new pose is calculated from the previous one, it has no absolute reference with which to catch a growing error. Resetting once at the start helps, but it cannot correct drift introduced after the robot begins moving.
+          </p>
+          <p>
+            I built <strong>Laser Odometry Verification (LOV)</strong> to provide that reference. It uses the known perimeter of the field and readings from VEX V5 distance sensors to estimate an absolute coordinate, then compares that result with the robot’s tracked pose.
           </p>
 
-          <h2>Accuracy and control</h2>
+          <aside class="article-callout" aria-labelledby="lov-summary-title">
+            <p class="article-callout-label" id="lov-summary-title">The core idea</p>
+            <p>Odometry predicts where the robot moved. LOV measures where the field says the robot is, then uses that measurement to correct the prediction.</p>
+          </aside>
+
+          <h2>How LOV improves odometry</h2>
+          <div class="article-feature-list">
+            <section>
+              <h3>Continuous background syncing</h3>
+              <p><code>VOLMain.startTracking()</code> runs as a background task. It continually calculates a pose from sensor data and, when <code>autoSync</code> is enabled, sends validated corrections to the chassis position-tracking object.</p>
+            </section>
+            <section>
+              <h3>Noise reduction</h3>
+              <p>Distance readings naturally fluctuate. When the robot is stationary, an accumulation routine averages a set of samples to establish a more reliable baseline coordinate.</p>
+            </section>
+            <section>
+              <h3>Configurable filtering</h3>
+              <p><code>minDelta</code> ignores insignificant changes caused by normal sensor noise, while <code>maxDelta</code> rejects implausible jumps that may come from a field element or another robot. <code>maxSyncPerSec</code> limits how frequently a correction may be applied.</p>
+            </section>
+            <section>
+              <h3>Efficient sensor use</h3>
+              <p>The system sits between uncorrected odometry and a more complex localization stack. It uses inexpensive distance sensors and known wall positions to improve absolute accuracy without introducing a full LiDAR solution.</p>
+            </section>
+          </div>
+
+          <h2>Implementation</h2>
           <p>
-            I added automatic sensor-value accumulation to improve accuracy while the robot is stationary. Customizable <code>minDelta</code> and <code>maxDelta</code> filters account for normal sensor variation and obstacles on the field, while a <code>maxSyncPerSec</code> controller limits how often the system synchronizes its position.
+            At its core, LOV is a geometric ray-casting system. Each distance sensor is treated as a ray that begins at a known point on the robot and extends along the sensor’s heading until it reaches the field perimeter.
+          </p>
+
+          <h3>1. Locate the sensor on the field</h3>
+          <p>
+            A sensor is mounted at a fixed distance and angle from the robot’s tracking center. As the robot turns, that offset rotates with it. Given the robot pose <var>(x<sub>bot</sub>, y<sub>bot</sub>, θ<sub>bot</sub>)</var>, sensor offset distance <var>d<sub>offset</sub></var>, and offset angle <var>θ<sub>offset</sub></var>, LOV first calculates the sensor’s absolute origin:
+          </p>
+          <div class="equation-block" role="img" aria-label="The sensor x coordinate equals the robot x coordinate plus cosine of sensor offset angle minus robot heading, multiplied by the offset distance. The sensor y coordinate equals the robot y coordinate plus sine of the same angle, multiplied by the offset distance.">
+            <span><var>x<sub>sensor</sub></var> = <var>x<sub>bot</sub></var> + cos(<var>θ<sub>offset</sub></var> − <var>θ<sub>bot</sub></var>) · <var>d<sub>offset</sub></var></span>
+            <span><var>y<sub>sensor</sub></var> = <var>y<sub>bot</sub></var> + sin(<var>θ<sub>offset</sub></var> − <var>θ<sub>bot</sub></var>) · <var>d<sub>offset</sub></var></span>
+          </div>
+
+          <h3>2. Intersect the ray with a wall</h3>
+          <p>
+            Once the sensor origin and heading are known, LOV projects the ray toward the field’s known boundaries. The measured distance <var>D</var> is resolved into its X and Y components. If the ray reaches a wall parallel to the Y-axis, for example, the field X-coordinate can be recovered from the wall position and the ray angle <var>α</var>:
+          </p>
+          <div class="equation-block equation-block-single" role="img" aria-label="The field x coordinate equals the wall x coordinate minus cosine of alpha multiplied by sensor distance D.">
+            <span><var>X<sub>field</sub></var> = <var>Wall<sub>X</sub></var> − cos(<var>α</var>) · <var>D</var></span>
+          </div>
+          <p>
+            The equivalent calculation is used for a horizontal wall and the Y-coordinate. LOV then translates the wall-derived sensor coordinate back to the robot’s geometric center, producing a candidate absolute pose.
+          </p>
+
+          <h3>3. Reject obstructed readings</h3>
+          <p>
+            A distance sensor does not know whether it is looking at a wall, a goal, or another robot. LOV lets field elements be declared as <code>Line_Obstacle</code> and <code>Circle_Obstacle</code> zones. Before accepting a measurement, it checks the sensor ray against these known obstacles.
+          </p>
+          <p>
+            Line intersections are evaluated with parametric equations; a cross-product test determines whether an obstacle lies between the sensor and the expected wall. If it does, the reading is invalidated before it can corrupt the robot’s pose.
+          </p>
+
+          <h2>Result</h2>
+          <p>
+            LOV turns the field perimeter into a recurring absolute reference. The robot can continue using fast, responsive wheel-and-IMU odometry for motion while verified distance readings quietly constrain long-term drift in the background.
           </p>
         </div>
 
