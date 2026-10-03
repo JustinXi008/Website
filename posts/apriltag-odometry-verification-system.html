@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="description" content="Justin Xi is launching an AprilTag-based odometry verification system with a vision data pipeline and custom camera interface PCB for robotics." />
+    <title>Launching an AprilTag Odometry Verification System — Justin Xi</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site-notice" role="status">
+      <div class="site-notice-inner">
+        <span class="site-notice-tag">In development</span>
+        <p>This website is still being developed and updated.</p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="logo" href="../index.html" aria-label="Justin Xi, home">Justin Xi<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a class="active" href="../posts.html" aria-current="page">Posts</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../coursework.html">Coursework</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="page article-page">
+      <a class="back-link" href="../posts.html">← All posts</a>
+
+      <article>
+        <header class="article-header">
+          <p class="article-kicker">Robotics</p>
+          <h1>Launching an AprilTag Odometry Verification System</h1>
+          <p class="article-deck">A new robotics project combining AprilTag localization, an odometry data pipeline, and a custom PCB that connects a third-party camera to the robot’s brain.</p>
+          <div class="article-byline">
+            <time datetime="2026-10-02">October 2, 2026</time>
+            <span class="status progress">In progress</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p class="article-lede">
+            I’m launching a new AprilTag-based odometry verification system for robotics. The goal is to give a robot an external position reference that can detect accumulated odometry error and help keep its estimated pose aligned with the real world.
+          </p>
+
+          <h2>Why AprilTags?</h2>
+          <p>
+            Wheel encoders and inertial sensors provide fast, continuous motion estimates, but wheel slip, collisions, and sensor noise can make that estimate drift over time. AprilTags provide known visual landmarks. By detecting a tag and estimating the camera’s position relative to it, the system can produce an independent pose measurement and compare it with the robot’s current odometry.
+          </p>
+
+          <aside class="article-callout" aria-labelledby="apriltag-summary-title">
+            <p class="article-callout-label" id="apriltag-summary-title">The core idea</p>
+            <p>Odometry tracks the robot continuously. AprilTag observations provide checkpoints that can reveal drift and support safe corrections.</p>
+          </aside>
+
+          <h2>The system I’m building</h2>
+          <div class="article-feature-list">
+            <section>
+              <h3>AprilTag-to-odometry data pipeline</h3>
+              <p>The software pipeline will receive detections from the camera, transform them into the robot’s coordinate system, and compare the resulting pose with the odometry estimate. It will also need to account for camera placement, tag positions, timing, and measurement confidence before a reading can be used.</p>
+            </section>
+            <section>
+              <h3>Verification and correction logic</h3>
+              <p>Not every detection should change the robot’s pose. The verification layer will reject unreliable observations, identify meaningful disagreement, and determine when an AprilTag measurement is trustworthy enough to correct accumulated drift.</p>
+            </section>
+            <section>
+              <h3>Custom camera interface PCB</h3>
+              <p>I’m also designing a PCB to connect a third-party camera to the robot’s brain. The board will provide a clean, dependable interface between the vision hardware and the rest of the robot while accounting for the system’s electrical and communication requirements.</p>
+            </section>
+          </div>
+
+          <h2>What comes next</h2>
+          <p>
+            The next steps are to define the camera-to-robot communication path, prototype the PCB, calibrate the camera’s position on the robot, and test the full pipeline against controlled movements. From there, I’ll evaluate how accurately the AprilTag measurements identify odometry drift and how reliably they can support corrections during robot operation.
+          </p>
+          <p>
+            I’ll share more details as the hardware and software come together.
+          </p>
+        </div>
+
+        <ul class="tags article-topics" aria-label="Topics"><li>AprilTag</li><li>Computer vision</li><li>PCB design</li><li>Robotics</li></ul>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Justin Xi</p>
+      <a href="../index.html">Back home →</a>
+    </footer>
+  </body>
+</html>
